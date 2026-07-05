@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Trắc nghiệm Anh Văn Chuyên Ngành Của Các Chú Khỉ 25C1_LTM1</title>
+<style>
+  :root{
+    --bg:#0f172a;
+    --card:#111c34;
+    --ink:#eef2ff;
+    --muted:#93a0c2;
+    --accent:#5eead4;
+    --accent2:#f0a868;
+    --correct:#4ade80;
+    --wrong:#f87171;
+    --border:#243356;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Segoe UI',Tahoma,Arial,sans-serif;
+    padding:32px 16px 80px;
+  }
+  .wrap{max-width:760px;margin:0 auto;}
+  header{text-align:center;margin-bottom:20px;}
+  header h1{font-size:1.6rem;margin:0 0 6px;letter-spacing:.3px;}
+  header p{color:var(--muted);margin:0;font-size:.95rem;}
+  .progress-bar{
+    height:6px;background:var(--border);border-radius:99px;overflow:hidden;margin:18px 0 6px;
+    position:sticky;top:0;z-index:5;
+  }
+  .progress-fill{
+    height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));width:0%;
+    transition:width .3s ease;
+  }
+  .progress-label{text-align:center;color:var(--muted);font-size:.8rem;margin-bottom:22px;}
+  .unit-tag{
+    display:inline-block;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--bg);background:var(--accent);padding:3px 10px;border-radius:99px;margin:24px 0 10px;
+    font-weight:700;
+  }
+  .card{
+    background:var(--card);border:1px solid var(--border);border-radius:14px;
+    padding:22px 22px 18px;margin-bottom:18px;
+  }
+  .qnum{color:var(--muted);font-size:.85rem;margin-bottom:4px;}
+  .qtext{font-size:1.05rem;margin:0 0 14px;line-height:1.5;}
+  .opt{
+    display:flex;align-items:center;gap:10px;
+    border:1px solid var(--border);border-radius:10px;padding:10px 14px;margin-bottom:8px;
+    cursor:pointer;transition:.15s;
+  }
+  .opt:hover{border-color:var(--accent);}
+  .opt input{accent-color:var(--accent);}
+  .opt.correct{border-color:var(--correct);background:rgba(74,222,128,.08);}
+  .opt.wrong{border-color:var(--wrong);background:rgba(248,113,113,.08);}
+  .explain{
+    display:none;margin-top:10px;font-size:.88rem;color:var(--muted);
+    border-left:3px solid var(--accent);padding:8px 12px;background:#0b1428;border-radius:0 8px 8px 0;
+  }
+  .explain.show{display:block;}
+  .submitbar{
+    position:sticky;bottom:0;background:linear-gradient(180deg,rgba(15,23,42,0),var(--bg) 30%);
+    padding:20px 0 4px;text-align:center;
+  }
+  button{
+    background:var(--accent);color:#08251f;border:none;border-radius:10px;
+    padding:13px 32px;font-size:1rem;font-weight:700;cursor:pointer;
+  }
+  button:hover{filter:brightness(1.08);}
+  #result{
+    text-align:center;background:var(--card);border:1px solid var(--border);
+    border-radius:14px;padding:26px;margin-top:10px;display:none;
+  }
+  #result h2{margin:0 0 6px;font-size:2rem;}
+  #result p{color:var(--muted);margin:4px 0 0;}
+  #result.show{display:block;}
+  .unit-score{text-align:left;margin-top:16px;font-size:.85rem;color:var(--muted);border-top:1px solid var(--border);padding-top:14px;}
+  .unit-score div{display:flex;justify-content:space-between;padding:3px 0;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Infotech: English for Computer Users Rest In Peach</h1>
+    <p>Trắc nghiệm Anh Văn Chuyên Ngành Của Các Chú Khỉ 25C1_LTM1</p>
+  </header>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="progress-label" id="progressLabel">Đã trả lời 0 / 0 câu</div>
+  <form id="quizForm"></form>
+  <div class="submitbar"><button id="submitBtn" type="button">Nộp bài</button></div>
+  <div id="result"></div>
+</div>
+
+<script>
+const QUIZ = [
+// ---------------- UNIT 2 ----------------
+{unit:"Unit 2 — Computer essentials", q:"A computer system consists of two main parts: hardware and ___.", opts:["software","peripherals","memory","registers"], a:0, ex:"Hardware là bộ phận vật lý; software là tập hợp chương trình/lệnh."},
+{unit:"Unit 2 — Computer essentials", q:"Which of the following is an input device?", opts:["Printer","Monitor","Keyboard","Hard drive"], a:2, ex:"Keyboard đưa dữ liệu vào máy; printer/monitor là output, hard drive là storage."},
+{unit:"Unit 2 — Computer essentials", q:"'It is the brain of the computer' refers to the...", opts:["CPU","RAM","modem","scanner"], a:0, ex:"CPU được ví như 'bộ não' của máy tính."},
+{unit:"Unit 2 — Computer essentials", q:"True or False: A mainframe computer is less powerful than a PC.", opts:["True","False"], a:1, ex:"Mainframe mạnh hơn PC nhiều, dùng cho tổ chức lớn."},
+{unit:"Unit 2 — Computer essentials", q:"Which type of computer is most suitable for typical home use?", opts:["Mainframe","Desktop PC","PDA","Server rack"], a:1, ex:"Desktop PC phổ biến nhất cho gia đình."},
+{unit:"Unit 2 — Computer essentials", q:"On a tablet PC, you can write directly onto the screen using a...", opts:["mouse","stylus","joystick","trackpad"], a:1, ex:"Stylus dùng để viết trực tiếp lên màn hình tablet PC."},
+{unit:"Unit 2 — Computer essentials", q:"A Personal Digital Assistant (PDA) is small enough to fit into...", opts:["a briefcase","a backpack","the palm of your hand","a desk drawer"], a:2, ex:"PDA nhỏ gọn, vừa lòng bàn tay."},
+{unit:"Unit 2 — Computer essentials", q:"Storage devices (hard drives, DVD drives, flash drives) provide...", opts:["temporary processing power","a permanent storage of data and programs","a way to display output","network connectivity only"], a:1, ex:"Storage devices lưu trữ lâu dài dữ liệu và chương trình."},
+{unit:"Unit 2 — Computer essentials", q:"What is a 'peripheral'?", opts:["A physical unit attached to the computer","A type of software program","The main circuit board","A unit of memory"], a:0, ex:"Peripheral là thiết bị ngoại vi gắn với máy tính (input/output/storage)."},
+{unit:"Unit 2 — Computer essentials", q:"What are the three basic hardware sections of a computer mentioned in the text?", opts:["CPU, main memory, and peripherals","Monitor, keyboard, and mouse","Software, firmware, and hardware","Input, output, and Wi-Fi"], a:0, ex:"3 phần cơ bản: CPU, bộ nhớ chính và các thiết bị ngoại vi."},
+{unit:"Unit 2 — Computer essentials", q:"The main memory is described as a collection of...", opts:["hard disks","RAM chips","ROM chips","optical discs"], a:1, ex:"Main memory là tập hợp các chip RAM."},
+{unit:"Unit 2 — Computer essentials", q:"Ports on a computer allow you to plug in...", opts:["peripherals such as a modem, digital camera, or scanner","only the power cable","only USB flash drives","nothing; ports are decorative"], a:0, ex:"Cổng (ports) cho phép kết nối các thiết bị ngoại vi."},
+{unit:"Unit 2 — Computer essentials", q:"'___ enable data to go into the computer's memory.'", opts:["Output devices","Input devices","Storage devices","Peripheral ports"], a:1, ex:"Input devices đưa dữ liệu vào bộ nhớ máy tính."},
+{unit:"Unit 2 — Computer essentials", q:"In a peer-to-peer network architecture...", opts:["all computers have the same capabilities","one computer controls all the others","only servers can store data","there is no data sharing"], a:0, ex:"Peer-to-peer: tất cả máy tính có vai trò ngang nhau."},
+{unit:"Unit 2 — Computer essentials", q:"In a client-server network, what do servers do?", opts:["Only display graphics","Store and distribute data","Only print documents","Act as input devices"], a:1, ex:"Server lưu trữ và phân phối dữ liệu cho các client."},
+{unit:"Unit 2 — Computer essentials", q:"According to the text, 'software' is defined as...", opts:["any electronic or mechanical part you can see or touch","a set of instructions, called a program, that tells the computer what to do","a type of storage device","the physical casing of a computer"], a:1, ex:"Software là tập hợp các lệnh (chương trình) điều khiển máy tính."},
+{unit:"Unit 2 — Computer essentials", q:"Which of these is an example of an output device?", opts:["Keyboard","Mouse","Monitor","Scanner"], a:2, ex:"Monitor hiển thị kết quả — là thiết bị xuất (output)."},
+{unit:"Unit 2 — Computer essentials", q:"Peripherals can be classified into three types: input, output, and...", opts:["storage devices","processing devices","network devices","power devices"], a:0, ex:"3 loại peripheral: input, output, storage."},
+
+// ---------------- UNIT 3 ----------------
+{unit:"Unit 3 — Inside the system", q:"The processor (CPU) consists of three main parts: control unit, registers, and...", opts:["ROM","the arithmetic logic unit (ALU)","BIOS","the motherboard"], a:1, ex:"CPU gồm: control unit, ALU và registers."},
+{unit:"Unit 3 — Inside the system", q:"What does ALU stand for?", opts:["Arithmetic Logic Unit","Automatic Load Unit","Analog Logic Utility","Array Length Unit"], a:0, ex:"ALU thực hiện các phép tính toán học và logic."},
+{unit:"Unit 3 — Inside the system", q:"Which type of memory is volatile (loses data when power is off)?", opts:["ROM","RAM","Hard disk","Flash memory"], a:1, ex:"RAM là bộ nhớ tạm, mất dữ liệu khi tắt máy."},
+{unit:"Unit 3 — Inside the system", q:"Which type of memory is non-volatile and contains basic startup instructions (BIOS)?", opts:["RAM","Cache","ROM","Register"], a:2, ex:"ROM lưu chỉ dẫn cơ bản, không mất khi tắt máy."},
+{unit:"Unit 3 — Inside the system", q:"Clock speed is measured in...", opts:["MB","GHz","dpi","bits"], a:1, ex:"Tốc độ xung nhịp đo bằng GHz."},
+{unit:"Unit 3 — Inside the system", q:"How many bits make up one byte?", opts:["4","8","16","32"], a:1, ex:"8 bit = 1 byte."},
+{unit:"Unit 3 — Inside the system", q:"The main circuit board inside a computer is called the...", opts:["motherboard","daughterboard","expansion card","bus width"], a:0, ex:"Motherboard là bo mạch chủ."},
+{unit:"Unit 3 — Inside the system", q:"What allows devices inside a computer to communicate with each other?", opts:["Buses","Cache","Ports","Registers"], a:0, ex:"Bus truyền dữ liệu giữa các thiết bị bên trong máy."},
+{unit:"Unit 3 — Inside the system", q:"What is the job of the control unit?", opts:["It stores data permanently","It examines and interprets instructions and coordinates the other components","It displays images on the monitor","It cools down the CPU"], a:1, ex:"Control unit diễn giải và điều phối các lệnh."},
+{unit:"Unit 3 — Inside the system", q:"The register called the 'program counter' (PC) is used to...", opts:["count how many programs are open","keep track of the next instruction to be performed","store the computer's IP address","measure clock speed"], a:1, ex:"Program counter theo dõi lệnh tiếp theo sẽ thực hiện."},
+{unit:"Unit 3 — Inside the system", q:"The 'instruction register' (IR) is used to...", opts:["hold the instruction that is currently being executed","store the user's password","control the monitor's brightness","record the bus width"], a:0, ex:"IR lưu lệnh đang được thực thi."},
+{unit:"Unit 3 — Inside the system", q:"An integrated circuit is best described as...", opts:["a complex electrical circuit built on a small piece of silicon","a type of printer","a unit of memory","a type of software license"], a:0, ex:"Integrated circuit (chip) là mạch điện tử phức tạp trên miếng silicon nhỏ."},
+{unit:"Unit 3 — Inside the system", q:"The channel that carries data from the CPU to other devices is called the...", opts:["front side bus","clipboard","dock","desktop"], a:0, ex:"Front side bus truyền dữ liệu từ CPU đến các thiết bị khác."},
+{unit:"Unit 3 — Inside the system", q:"What does 'bus width' determine?", opts:["The colour of the monitor","How much data can be transmitted at once","The speed of the mouse","The size of the hard drive"], a:1, ex:"Bus width quyết định lượng dữ liệu truyền được cùng lúc."},
+{unit:"Unit 3 — Inside the system", q:"Expansion cards can add features like sound, memory, and...", opts:["network capabilities","more RAM only","a new operating system","extra ports only"], a:0, ex:"Expansion card có thể thêm âm thanh, bộ nhớ, khả năng kết nối mạng."},
+{unit:"Unit 3 — Inside the system", q:"When you run a program, the CPU looks for it on the hard disk and...", opts:["deletes the previous program","transfers a copy into RAM","transfers it into ROM","sends it directly to the printer"], a:1, ex:"CPU tải chương trình từ ổ cứng vào RAM để xử lý."},
+{unit:"Unit 3 — Inside the system", q:"ASCII is used for...", opts:["the standard binary representation of characters","measuring clock speed","cooling the processor","connecting peripherals"], a:0, ex:"ASCII mã hóa ký tự thành dạng nhị phân chuẩn."},
+{unit:"Unit 3 — Inside the system", q:"1,024 bytes equals one...", opts:["bit","kilobyte (KB)","gigabyte (GB)","terabyte (TB)"], a:1, ex:"1,024 byte = 1 KB."},
+{unit:"Unit 3 — Inside the system", q:"1,024 megabytes (MB) equals one...", opts:["kilobyte","byte","gigabyte (GB)","bit"], a:2, ex:"1,024 MB = 1 GB."},
+{unit:"Unit 3 — Inside the system", q:"A 'bit' is best defined as...", opts:["a binary digit, either 0 or 1","a group of 8 bytes","a type of processor","a unit of screen resolution"], a:0, ex:"Bit là đơn vị nhị phân nhỏ nhất (0 hoặc 1)."},
+
+// ---------------- UNIT 7 ----------------
+{unit:"Unit 7 — Display screens & ergonomics", q:"What does LCD stand for?", opts:["Liquid Crystal Display","Linear Colour Display","Light Contrast Device","Long Cathode Display"], a:0, ex:"LCD = Liquid Crystal Display."},
+{unit:"Unit 7 — Display screens & ergonomics", q:"What does CRT stand for?", opts:["Cathode Ray Tube","Colour Ratio Technology","Compact Read Terminal","Chip Register Type"], a:0, ex:"CRT = Cathode Ray Tube (màn hình ống tia âm cực)."},
+{unit:"Unit 7 — Display screens & ergonomics", q:"The smallest unit on a display screen is called a...", opts:["byte","pixel","frame","node"], a:1, ex:"Pixel là đơn vị nhỏ nhất trên màn hình."},
+{unit:"Unit 7 — Display screens & ergonomics", q:"Resolution refers to...", opts:["the number of pixels horizontally and vertically","the physical size of the screen in inches","the weight of the monitor","the brand of the video adapter"], a:0, ex:"Độ phân giải là số điểm ảnh ngang x dọc."},
+{unit:"Unit 7 — Display screens & ergonomics", q:"For widescreen displays, the common aspect ratio is...", opts:["4:3","16:9","1:1","3:2"], a:1, ex:"16:9 là tỉ lệ khung hình rộng phổ biến."},
+{unit:"Unit 7 — Display screens & ergonomics", q:"Active-matrix LCDs use which technology?", opts:["TFT (thin film transistor)","VGA","DVI","OLED"], a:0, ex:"TFT giúp mỗi điểm ảnh có công tắc riêng."},
+{unit:"Unit 7 — Display screens & ergonomics", q:"Ergonomics is the study of...", opts:["how computers process data","how people interact safely and efficiently with machines and work conditions","how printers produce images","how networks transmit data"], a:1, ex:"Ergonomics nghiên cứu tương tác an toàn giữa người và máy."},
+{unit:"Unit 7 — Display screens & ergonomics", q:"For good posture, the monitor should be positioned...", opts:["above eye level","at eye level or just below","directly on the floor","behind the keyboard"], a:1, ex:"Nên đặt màn hình ngang tầm mắt hoặc thấp hơn."},
+{unit:"Unit 7 — Display screens & ergonomics", q:"Colour depth refers to...", opts:["the number of colours a monitor can display","the screen's physical size","the number of ports on a monitor","the brightness of the backlight only"], a:0, ex:"Colour depth = số màu hiển thị được, dựa trên số bit/pixel."},
+{unit:"Unit 7 — Display screens & ergonomics", q:"CRT monitors typically use which type of cable/adapter?", opts:["VGA","DVI","HDMI","USB"], a:0, ex:"CRT dùng cáp VGA (video graphics adapter)."},
+{unit:"Unit 7 — Display screens & ergonomics", q:"LCD monitors typically use which connection?", opts:["VGA","DVI","SCSI","Parallel port"], a:1, ex:"LCD dùng kết nối DVI (digital video interface)."},
+{unit:"Unit 7 — Display screens & ergonomics", q:"In a CRT monitor, the image is created when an electron beam strikes...", opts:["liquid crystal cells","phosphor dots","LED panels","plasma gas only"], a:1, ex:"Chùm electron chiếu vào các điểm phosphor tạo hình ảnh."},
+{unit:"Unit 7 — Display screens & ergonomics", q:"Brightness (luminance) of an LCD is measured in...", opts:["dpi","GHz","cd/m² (candela per square metre)","bits per second"], a:2, ex:"Độ sáng đo bằng cd/m²."},
+{unit:"Unit 7 — Display screens & ergonomics", q:"A plasma screen produces light using...", opts:["noble (non-harmful) gases","liquid crystal cells","a laser beam","magnetic tape"], a:0, ex:"Plasma screen dùng khí trơ (gas discharge) để tạo ánh sáng."},
+{unit:"Unit 7 — Display screens & ergonomics", q:"One advantage of OLED displays is that they...", opts:["require a strong backlight to function","are thin, flexible, and don't require a backlight","only display black and white images","cannot be used in phones"], a:1, ex:"OLED mỏng, dẻo, không cần đèn nền."},
+{unit:"Unit 7 — Display screens & ergonomics", q:"The keyboard should be positioned...", opts:["above shoulder height","level with your elbows, arms parallel to the work surface","as far away as possible","tilted vertically"], a:1, ex:"Bàn phím nên đặt ngang khuỷu tay, cánh tay song song mặt bàn."},
+{unit:"Unit 7 — Display screens & ergonomics", q:"How far should you typically sit from the monitor?", opts:["5–10 cm","50–70 cm","2 metres","20–30 cm"], a:1, ex:"Khoảng cách khuyến nghị là 50-70 cm."},
+{unit:"Unit 7 — Display screens & ergonomics", q:"What should you use to reduce strain when working from paper documents?", opts:["A copyholder positioned between the screen and keyboard","A thicker mouse pad","A larger monitor only","A second keyboard"], a:0, ex:"Copyholder giúp giảm mỏi cổ, lưng, mắt."},
+
+// ---------------- UNIT 8 ----------------
+{unit:"Unit 8 — Choosing a printer", q:"Which type of printer scans an image with a laser beam and uses toner?", opts:["Inkjet printer","Laser printer","Dot-matrix printer","Plotter"], a:1, ex:"Laser printer dùng tia laser và mực bột (toner)."},
+{unit:"Unit 8 — Choosing a printer", q:"Which printer works by projecting small ink droplets onto paper?", opts:["Laser printer","Inkjet printer","Imagesetter","Platesetter"], a:1, ex:"Inkjet phun giọt mực nhỏ lên giấy."},
+{unit:"Unit 8 — Choosing a printer", q:"Dot-matrix printers use ___ to print characters.", opts:["pins","lasers","toner","ink cartridges"], a:0, ex:"Dot-matrix dùng kim (pins) để in."},
+{unit:"Unit 8 — Choosing a printer", q:"'dpi' in printer specifications stands for...", opts:["dots per inch","digital printing index","display pixel intensity","data print interval"], a:0, ex:"dpi = dots per inch, đo độ phân giải."},
+{unit:"Unit 8 — Choosing a printer", q:"Which device draws detailed technical/engineering designs using ink and fine pens?", opts:["Plotter","Imagesetter","Platesetter","Multi-function printer"], a:0, ex:"Plotter dùng cho bản vẽ kỹ thuật chi tiết."},
+{unit:"Unit 8 — Choosing a printer", q:"Which technology lets you print directly from a digital camera without a computer?", opts:["PictBridge","Bluetooth pairing","CTP (computer to plate)","OCR"], a:0, ex:"PictBridge in trực tiếp từ máy ảnh số."},
+{unit:"Unit 8 — Choosing a printer", q:"Imagesetters and platesetters are mainly used in...", opts:["home offices","desktop publishing (DTP)","gaming setups","email servers"], a:1, ex:"Dùng trong xuất bản (DTP) vì độ phân giải cực cao."},
+{unit:"Unit 8 — Choosing a printer", q:"A multi-function printer typically combines printing, scanning, copying, and...", opts:["faxing","gaming","browsing","compiling"], a:0, ex:"Thường tích hợp thêm chức năng fax."},
+{unit:"Unit 8 — Choosing a printer", q:"'Toner' is best described as...", opts:["a special ink powder used in laser printers","a type of paper","a wireless connection standard","a resolution unit"], a:0, ex:"Toner là mực bột dùng trong máy in laser."},
+{unit:"Unit 8 — Choosing a printer", q:"Printers that transfer wax-based ink onto paper for colour images/bar codes are called...", opts:["laser printers","dye-sublimation printers","dot-matrix printers","plotters"], a:1, ex:"Dye-sublimation dùng mực gốc sáp, phổ biến in mã vạch, đồ họa trung bình."},
+{unit:"Unit 8 — Choosing a printer", q:"CTP (computer to plate) technology means images are output...", opts:["directly to the printing plates, without needing film","only as digital files","onto DVDs","onto flash drives"], a:0, ex:"CTP xuất trực tiếp ra bản in, bỏ qua bước phim trung gian."},
+{unit:"Unit 8 — Choosing a printer", q:"The machine used in CTP technology is called a...", opts:["platesetter","imagesetter","plotter","scanner"], a:0, ex:"Platesetter là máy dùng trong công nghệ CTP."},
+{unit:"Unit 8 — Choosing a printer", q:"Dot-matrix printers typically produce a resolution of...", opts:["3,000+ dpi","1,200–2,400 dpi","72–180 dpi","16.7 million dpi"], a:2, ex:"Dot-matrix có độ phân giải thấp, 72-180 dpi."},
+{unit:"Unit 8 — Choosing a printer", q:"Which type of printer is generally fairly fast, quiet, and cheaper than laser printers?", opts:["Inkjet printers","Imagesetters","Platesetters","Plotters"], a:0, ex:"Inkjet nhanh, êm và rẻ hơn laser."},
+{unit:"Unit 8 — Choosing a printer", q:"A key disadvantage of imagesetters/platesetters is that they are...", opts:["too slow to use","too expensive for homes or small offices","unable to print in colour","unable to print on paper"], a:1, ex:"Quá đắt cho gia đình/văn phòng nhỏ."},
+{unit:"Unit 8 — Choosing a printer", q:"The term for a language describing how to print text and pictures on a page is...", opts:["PDL (page description language)","GUI","ASCII","HTML"], a:0, ex:"PDL = page description language."},
+{unit:"Unit 8 — Choosing a printer", q:"Compared with a low-cost inkjet, a laser printer is generally...", opts:["noisier and slower","quieter and faster","exactly the same speed","unable to print graphics"], a:1, ex:"Laser thường êm hơn và nhanh hơn inkjet giá rẻ."},
+{unit:"Unit 8 — Choosing a printer", q:"Dot-matrix printers are ___ than laser printers, but much cheaper.", opts:["faster","slower","quieter","higher resolution"], a:1, ex:"Dot-matrix chậm hơn laser nhưng rẻ hơn nhiều."},
+
+// ---------------- UNIT 13 ----------------
+{unit:"Unit 13 — The operating system (OS)", q:"What does GUI stand for?", opts:["Graphical User Interface","General Utility Index","Global Update Installer","Guided User Instruction"], a:0, ex:"GUI = Graphical User Interface."},
+{unit:"Unit 13 — The operating system (OS)", q:"Apple's Macintosh (1984) was the first computer with a mouse and a...", opts:["command-line interface","GUI","touchscreen","voice interface"], a:1, ex:"Macintosh 1984 có chuột và GUI đầu tiên."},
+{unit:"Unit 13 — The operating system (OS)", q:"Which OS is open-source, released under the GNU General Public License?", opts:["Windows","Mac OS","Linux","Windows Mobile"], a:2, ex:"Linux là hệ điều hành mã nguồn mở theo GNU GPL."},
+{unit:"Unit 13 — The operating system (OS)", q:"Who created Linux while a student at the University of Helsinki?", opts:["Bill Gates","Steve Jobs","Linus Torvalds","Tim Berners-Lee"], a:2, ex:"Linus Torvalds tạo ra Linux."},
+{unit:"Unit 13 — The operating system (OS)", q:"The background screen that displays icons and folders is called the...", opts:["taskbar","desktop","dock","clipboard"], a:1, ex:"Desktop là màn hình nền."},
+{unit:"Unit 13 — The operating system (OS)", q:"Double-clicking a folder icon typically...", opts:["deletes the folder","opens a window containing its contents","restarts the computer","formats the disk"], a:1, ex:"Double-click mở cửa sổ chứa nội dung folder."},
+{unit:"Unit 13 — The operating system (OS)", q:"Which OS is historically used on BlackBerry devices?", opts:["Palm OS","Symbian OS","RIM (Research In Motion)","Windows Mobile"], a:2, ex:"RIM phát triển hệ điều hành cho BlackBerry."},
+{unit:"Unit 13 — The operating system (OS)", q:"Multitasking means the OS allows you to...", opts:["run only one program at a time","run several programs at the same time","connect to the internet only","print documents faster"], a:1, ex:"Multitasking = chạy nhiều chương trình cùng lúc."},
+{unit:"Unit 13 — The operating system (OS)", q:"In the late 1970s/early 1980s, interfaces were complex mainly because...", opts:["only experts used computers, so there was no need for a user-friendly interface","computers had no memory","there were no monitors yet","the mouse had not been invented anywhere"], a:0, ex:"Lúc đó chỉ chuyên gia dùng máy tính nên giao diện chưa cần thân thiện."},
+{unit:"Unit 13 — The operating system (OS)", q:"The WIMP environment stands for windows, icons, menus, and...", opts:["pointer","printer","ports","protocols"], a:0, ex:"WIMP = Windows, Icons, Menus, Pointer."},
+{unit:"Unit 13 — The operating system (OS)", q:"A 'drop-down (pull-down) menu' is...", opts:["a list of options that appears below a menu item when selected","the background of the screen","a type of hard drive","a keyboard shortcut"], a:0, ex:"Drop-down menu hiện danh sách lựa chọn khi click vào mục menu."},
+{unit:"Unit 13 — The operating system (OS)", q:"In Mac OS X, the 'dock' is...", opts:["a set of icons at the bottom of the screen for quick access","a storage device","the main menu bar","a type of file extension"], a:0, ex:"Dock chứa các icon truy cập nhanh ở cuối màn hình."},
+{unit:"Unit 13 — The operating system (OS)", q:"Which Windows Vista edition targets high-end PC users, gamers, and multimedia professionals?", opts:["Home Basic","Business","Ultimate","Starter"], a:2, ex:"Ultimate là bản đầy đủ nhất, dành cho người dùng cao cấp."},
+{unit:"Unit 13 — The operating system (OS)", q:"Which Windows Vista edition targets users with basic needs like email/internet?", opts:["Home Basic","Ultimate","Business","Enterprise"], a:0, ex:"Home Basic dành cho nhu cầu cơ bản."},
+{unit:"Unit 13 — The operating system (OS)", q:"Which suite of Windows programs includes Word, Excel, and PowerPoint?", opts:["Windows Defender","Microsoft Office","Internet Explorer","Windows Media Player"], a:1, ex:"Microsoft Office gồm Word, Excel, PowerPoint."},
+{unit:"Unit 13 — The operating system (OS)", q:"The Windows Security Centre typically includes Windows Defender and a...", opts:["firewall","new keyboard driver","printer utility","sound card"], a:0, ex:"Security Centre gồm Windows Defender và tường lửa (firewall)."},
+{unit:"Unit 13 — The operating system (OS)", q:"Which OS is used on Palm handheld devices?", opts:["Palm OS","Symbian OS","RIM","Unix"], a:0, ex:"Palm OS dùng cho thiết bị cầm tay Palm."},
+{unit:"Unit 13 — The operating system (OS)", q:"Which OS historically ran on smartphones like Nokia and Siemens?", opts:["Symbian OS","Palm OS","RIM","Windows Mobile"], a:0, ex:"Symbian OS phổ biến trên điện thoại Nokia, Siemens."},
+{unit:"Unit 13 — The operating system (OS)", q:"Unix is mainly described as a multi-user system found on...", opts:["mainframes and workstations in corporate installations","only smartphones","only home desktop PCs","only gaming consoles"], a:0, ex:"Unix dùng trên mainframe và workstation ở doanh nghiệp."},
+{unit:"Unit 13 — The operating system (OS)", q:"The term 'user interface' refers to...", opts:["the standard procedures a user follows to interact with a computer","the internal wiring of the CPU","a type of printer","a network protocol"], a:0, ex:"User interface = cách người dùng tương tác với máy tính."},
+
+// ---------------- UNIT 14 ----------------
+{unit:"Unit 14 — Word processing (WP)", q:"The toolbar that lists icons to save, print, and spell-check is called the...", opts:["Formatting Toolbar","Standard Toolbar","Menu Bar","Status Bar"], a:1, ex:"Standard Toolbar chứa các icon lưu, in, kiểm tra chính tả."},
+{unit:"Unit 14 — Word processing (WP)", q:"A font consists of typeface, type style, and...", opts:["type size","font colour","line spacing","page margin"], a:0, ex:"3 yếu tố của font: typeface, type style, type size."},
+{unit:"Unit 14 — Word processing (WP)", q:"The 'Cut and Paste' technique is used to...", opts:["delete text permanently","move text from one place to another","change font size","insert a picture"], a:1, ex:"Cut and Paste di chuyển văn bản đến vị trí khác."},
+{unit:"Unit 14 — Word processing (WP)", q:"To insert a picture into a Word document, you go to the ___ menu.", opts:["File","Insert","View","Format"], a:1, ex:"Insert > Picture để chèn hình ảnh."},
+{unit:"Unit 14 — Word processing (WP)", q:"What is the keyboard shortcut for Copy?", opts:["Ctrl+V","Ctrl+X","Ctrl+C","Ctrl+Z"], a:2, ex:"Ctrl+C = Copy."},
+{unit:"Unit 14 — Word processing (WP)", q:"What is the keyboard shortcut for Paste?", opts:["Ctrl+C","Ctrl+V","Ctrl+P","Ctrl+A"], a:1, ex:"Ctrl+V = Paste."},
+{unit:"Unit 14 — Word processing (WP)", q:"When you Cut or Copy text, it is temporarily stored in the...", opts:["Clipboard","Recycle Bin","Cache","Registry"], a:0, ex:"Clipboard lưu tạm nội dung Cut/Copy."},
+{unit:"Unit 14 — Word processing (WP)", q:"To change the space between the page margin and where text aligns, you use the...", opts:["Increase/Decrease Indent buttons","Font Colour button","Bullet list button","Page Break command"], a:0, ex:"Nút Increase/Decrease Indent điều chỉnh thụt lề."},
+{unit:"Unit 14 — Word processing (WP)", q:"The Formatting Toolbar is mainly used for changing...", opts:["font, alignment, and indentation","file location","internet settings","printer drivers"], a:0, ex:"Formatting Toolbar dùng để đổi font, canh lề, thụt đầu dòng."},
+{unit:"Unit 14 — Word processing (WP)", q:"Besides bold and italic, another common 'type style' is...", opts:["underlined","justified","columned","hyperlinked"], a:0, ex:"Underlined (gạch chân) là một kiểu type style phổ biến."},
+{unit:"Unit 14 — Word processing (WP)", q:"Header and Footer commands allow you to...", opts:["specify customized text at the top and bottom of every page","change the document's font","insert a table of contents automatically","connect to a printer"], a:0, ex:"Header/Footer hiển thị nội dung tùy chỉnh ở đầu/cuối mỗi trang."},
+{unit:"Unit 14 — Word processing (WP)", q:"In Cut and Paste, after you choose 'Cut,' the selected text...", opts:["is deleted permanently","disappears and goes onto the clipboard","is automatically printed","changes colour"], a:1, ex:"Văn bản biến mất khỏi trang và được lưu vào clipboard."},
+{unit:"Unit 14 — Word processing (WP)", q:"What is the first step when moving text using Cut and Paste?", opts:["Click Paste immediately","Use the mouse to select the text you want to move","Open a new document","Save the file"], a:1, ex:"Bước đầu tiên là chọn (select) văn bản cần di chuyển."},
+{unit:"Unit 14 — Word processing (WP)", q:"Which sequence word introduces the FIRST step in a set of instructions?", opts:["First","Finally","After that","Meanwhile"], a:0, ex:"'First' dùng để mở đầu bước đầu tiên."},
+{unit:"Unit 14 — Word processing (WP)", q:"Which expression is used to check if a process/task is completed?", opts:["'Is that everything?'","'Once upon a time'","'By the way'","'In conclusion'"], a:0, ex:"'Is that everything?' dùng để hỏi đã xong chưa."},
+{unit:"Unit 14 — Word processing (WP)", q:"To copy text, you first select it, then click on the...", opts:["Undo icon","Copy icon","Print Preview icon","Hyperlink icon"], a:1, ex:"Sau khi chọn văn bản, bấm vào icon Copy."},
+{unit:"Unit 14 — Word processing (WP)", q:"Where do you find 'Insert > Picture > From File' in Word?", opts:["In the Insert menu","In the File menu","In the View menu","In the Format menu"], a:0, ex:"Tùy chọn này nằm trong menu Insert."},
+{unit:"Unit 14 — Word processing (WP)", q:"After inserting an image, what should you do to adjust its size and properties?", opts:["Right-click and select Format Picture","Restart Word","Save as PDF","Change the page orientation"], a:0, ex:"Right-click > Format Picture để chỉnh kích thước, thuộc tính ảnh."},
+];
+
+const form = document.getElementById('quizForm');
+let lastUnit = "";
+QUIZ.forEach((item,i)=>{
+  const card = document.createElement('div');
+  card.className = 'card';
+  let tagHtml = '';
+  if(item.unit !== lastUnit){
+    tagHtml = `<div class="unit-tag">${item.unit}</div>`;
+    lastUnit = item.unit;
+  }
+  let optsHtml = item.opts.map((o,j)=>`
+    <label class="opt" data-q="${i}" data-o="${j}">
+      <input type="radio" name="q${i}" value="${j}"> <span>${o}</span>
+    </label>`).join('');
+  card.innerHTML = `${tagHtml}<div class="qnum">Câu ${i+1}/${QUIZ.length}</div>
+    <p class="qtext">${item.q}</p>
+    ${optsHtml}
+    <div class="explain" id="ex${i}">${item.ex}</div>`;
+  form.appendChild(card);
+});
+
+function updateProgress(){
+  let answered = 0;
+  QUIZ.forEach((_,i)=>{ if(form.querySelector(`input[name="q${i}"]:checked`)) answered++; });
+  document.getElementById('progressFill').style.width = (answered/QUIZ.length*100)+'%';
+  document.getElementById('progressLabel').textContent = `Đã trả lời ${answered} / ${QUIZ.length} câu`;
+}
+form.addEventListener('change', updateProgress);
+updateProgress();
+
+document.getElementById('submitBtn').addEventListener('click', ()=>{
+  let score = 0;
+  let unanswered = [];
+  const unitStats = {};
+  QUIZ.forEach((item,i)=>{
+    const checked = form.querySelector(`input[name="q${i}"]:checked`);
+    const opts = form.querySelectorAll(`.opt[data-q="${i}"]`);
+    if(!checked){ unanswered.push(i+1); }
+    opts.forEach(opt=>{
+      const o = parseInt(opt.dataset.o);
+      opt.classList.remove('correct','wrong');
+      if(o === item.a) opt.classList.add('correct');
+      else if(checked && parseInt(checked.value)===o) opt.classList.add('wrong');
+    });
+    if(!unitStats[item.unit]) unitStats[item.unit] = {correct:0,total:0};
+    unitStats[item.unit].total++;
+    if(checked && parseInt(checked.value)===item.a){ score++; unitStats[item.unit].correct++; }
+    document.getElementById('ex'+i).classList.add('show');
+  });
+  document.getElementById('progressFill').style.width = '100%';
+  document.getElementById('progressLabel').textContent = `Đã trả lời ${QUIZ.length} / ${QUIZ.length} câu`;
+  const result = document.getElementById('result');
+  const pct = Math.round(score/QUIZ.length*100);
+  let unitHtml = Object.entries(unitStats).map(([u,s])=>`<div><span>${u}</span><span>${s.correct}/${s.total}</span></div>`).join('');
+  result.innerHTML = `<h2>${score} / ${QUIZ.length} câu đúng (${pct}%)</h2>
+    <p>${pct>=80?'Xuất sắc! Bạn nắm rất vững các unit này.':pct>=60?'Khá tốt — xem lại phần giải thích ở các câu sai nhé.':'Nên ôn lại nội dung các unit rồi làm lại bài trắc nghiệm.'}</p>
+    ${unanswered.length? `<p style="color:var(--wrong)">Chưa trả lời câu: ${unanswered.join(', ')}</p>`:''}
+    <div class="unit-score">${unitHtml}</div>`;
+  result.classList.add('show');
+  result.scrollIntoView({behavior:'smooth'});
+  document.getElementById('submitBtn').textContent = 'Đã nộp bài ✓';
+  document.getElementById('submitBtn').disabled = true;
+});
+</script>
+</body>
+</html>
